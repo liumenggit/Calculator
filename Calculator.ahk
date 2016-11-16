@@ -1,15 +1,15 @@
-TreeRoot=f:\Git\Calculator
+IniRead,TreeRoot,Price.ini,é…ç½®,TreeRoot
 ImageListID := IL_Create(5)
 Loop 5 
     IL_Add(ImageListID, "shell32.dll", A_Index)
 Gui,Add,ComboBox,ym w300 Section
 Gui,Add,TreeView,xm w300 r30 ImageList%ImageListID% gview
-Gui,Add,ListView,ym w1000 hp+ vMyListView,ÈÕÆÚ|ÎÄ¼şÃû|²ÄÖÊ|¹æ¸ñ|µ¥Î»|ÊıÁ¿|Ãæ»ı|µ¥¼Û|½ğ¶î|±¸×¢
+Gui,Add,ListView,ym w1000 hp+ vMyListView,æ—¥æœŸ|æ–‡ä»¶å|æè´¨|è§„æ ¼|å•ä½|æ•°é‡|é¢ç§¯|å•ä»·|é‡‘é¢|å¤‡æ³¨
 ImageListID := IL_Create(10)
 LV_SetImageList(ImageListID)
 Loop 10
     IL_Add(ImageListID, "shell32.dll", A_Index) 
-Gui,Show,,¹ã¸æÖÆ×÷ĞĞÒµ¼ÆËãÆ÷
+Gui,Show,,å¹¿å‘Šåˆ¶ä½œè¡Œä¸šè®¡ç®—å™¨
 AddSubFoldersToTree(TreeRoot)
 return
 view:
@@ -28,7 +28,7 @@ SelectedFullPath = %TreeRoot%\%SelectedItemText%
 Compute(SelectedFullPath)
 return
 Compute(Path){
-	RegExMatch(FileFullPath,"´óÅç|Ğ´Õæ|³µÌù|Éş",Section)
+	RegExMatch(FileFullPath,"å¤§å–·|å†™çœŸ|è½¦è´´|ç»³",Section)
 	LV_Delete()
 	GuiControl, -Redraw,MyListView
 	Loop,%Path%\*.jpg, R
@@ -56,7 +56,7 @@ GetSize(FileFullPath){
 	GetSize := Object()
 	GetSize.Width := objImage.Width/objImage.HorizontalResolution*2.54
 	GetSize.Height := objImage.Height/objImage.HorizontalResolution*2.54
-	RegExMatch(FileFullPath,"\d+(?=¸ö|·İ|¿é|Ãæ)",Score)
+	RegExMatch(FileFullPath,"\d+(?=ä¸ª|ä»½|å—|é¢)",Score)
 	if not Score
 		Score=1
 	GetSize.Score := Score
@@ -64,7 +64,7 @@ GetSize(FileFullPath){
 	SetFormat,float,0.1
 	GetSize.Square := GetSize.Width*GetSize.Height/10000*Score
 	GetSize.ico:=2
-	For key,var in RegExMatchAll(FileFullPath,"´óÅç|Ğ´Õæ|³µÌù|Éş"){
+	For key,var in RegExMatchAll(FileFullPath,"å¤§å–·|å†™çœŸ|è½¦è´´|ç»³"){
 		IniRead,Peice,Price.ini,%var%,Price
 		IniRead,Way,Price.ini,%var%,Way
 		GetSize.Peice:=Peice
